@@ -5,7 +5,10 @@ import com.example.crudgame.service.HeroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class crudGameController {
@@ -15,6 +18,16 @@ public class crudGameController {
 
     public crudGameController(HeroService heroService) {
         this.heroService = heroService;
+    }
+
+    @GetMapping("/new")
+    public void createHero() {
+        heroService.create();
+    }
+
+    @GetMapping("/getAll")
+    public List<Hero> getAll() {
+        return  heroService.getAll();
     }
 
     @GetMapping("/{id}")
