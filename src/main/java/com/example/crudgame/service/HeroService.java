@@ -26,4 +26,23 @@ public class HeroService {
     public List<Hero> getAll() {
         return repository.getAll();
     }
+
+    public String upgreatAttack(int id) {
+        Hero hero = repository.getById(id);
+        if(hero.getLevel() > hero.getAttack() + hero.getDefence()) {
+            hero.setAttack(hero.getAttack() + 1);
+            repository.updateHero(hero);
+            return "Attack upgreated";
+        }
+        return "Not enouth experience";
+    }
+    public String upgreatDefence(int id) {
+        Hero hero = repository.getById(id);
+        if(hero.getLevel() > hero.getAttack() + hero.getDefence()) {
+            hero.setDefence(hero.getDefence() + 1);
+            repository.updateHero(hero);
+            return "Defence upgreated";
+        }
+        return "Not enough experience";
+    }
 }

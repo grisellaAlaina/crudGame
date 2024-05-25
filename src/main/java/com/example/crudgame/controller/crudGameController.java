@@ -3,10 +3,7 @@ package com.example.crudgame.controller;
 import com.example.crudgame.model.Hero;
 import com.example.crudgame.service.HeroService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,4 +31,19 @@ public class crudGameController {
     public Hero getHeroById(@PathVariable("id") int id) {
         return heroService.getHero(id);
     }
+
+    @PutMapping("/upgreatAttack/{id}")
+    public String upgreatAttack(@PathVariable("id") int id) {
+        return heroService.upgreatAttack(id);
+    }
+    @PutMapping("/upgreatDefence/{id}")
+    public String upgreatDefence(@PathVariable("id") int id) {
+        return heroService.upgreatDefence(id);
+    }
+
+
+
+
+
+
 }

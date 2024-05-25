@@ -25,4 +25,8 @@ public class HeroRepository {
     public List<Hero> getAll() {
         return heroList;
     }
+
+    public void updateHero(Hero hero) {
+        heroList.set(hero.getId(), hero);
+    }
 }
