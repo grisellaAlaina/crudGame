@@ -8,6 +8,7 @@ public class Hero {
     }
     private int id;
     private String name;
+    private int totalFights = 0;
     private int level = 0;
     private int experience = 0;
     private int attack = 0;
@@ -59,5 +60,13 @@ public class Hero {
 
     public void setDefence(int defence) {
         this.defence = defence;
+    }
+
+    public int getTotalFights() {
+        return totalFights;
+    }
+
+    public void setTotalFights(int totalFights) {
+        this.totalFights = totalFights;
     }
 }

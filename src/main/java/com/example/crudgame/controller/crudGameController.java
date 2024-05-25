@@ -41,6 +41,11 @@ public class crudGameController {
         return heroService.upgreatDefence(id);
     }
 
+    @PutMapping("/getFight/{id}")
+    public Hero getFigth(@PathVariable("id") int id) {
+        return heroService.getFigth(id);
+    }
+
 
 
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class HeroService {
@@ -44,5 +45,35 @@ public class HeroService {
             return "Defence upgreated";
         }
         return "Not enough experience";
+    }
+
+    public Hero getFigth(int id) {
+        Hero hero = repository.getById(id);
+        for(int i = 0; i < 10; i++) {
+            hero.setTotalFights(hero.getTotalFights() + 1);
+            if (i - hero.getDefence() > hero.getAttack()) {
+                hero = winResult(hero, i);
+                break;
+            } else if (i - hero.getDefence() == hero.getAttack()) {
+                Random random = new Random();
+                if (random.nextBoolean()) {
+                    hero = winResult(hero, i);
+                    break;
+                }
+            }
+
+        }
+        repository.updateHero(hero);
+        return hero;
+    }
+
+    public Hero winResult(Hero hero, int i) {
+        hero.setExperience(hero.getExperience() + i * 13);
+        if (hero.getExperience() > 100) {
+            hero.setLevel(hero.getLevel() + 1);
+            hero.setExperience(0);
+        }
+        if (i == 9) hero.setName("CHAMPION");
+        return hero;
     }
 }
