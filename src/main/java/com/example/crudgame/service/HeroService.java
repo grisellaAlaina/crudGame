@@ -14,8 +14,8 @@ public class HeroService {
     @Autowired
     HeroRepository repository;
 
-    public void create() {
-        repository.addHero();
+    public void create(String name) {
+        repository.addHero(name);
     }
 
 

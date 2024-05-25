@@ -20,9 +20,9 @@ public class crudGameController {
         this.heroService = heroService;
     }
 
-    @PostMapping("/new")
-    public void createHero() {
-        heroService.create();
+    @PostMapping("/new/{name}")
+    public void createHero(@PathVariable("name") String name) {
+        heroService.create(name);
     }
 
     @GetMapping("/getAll")

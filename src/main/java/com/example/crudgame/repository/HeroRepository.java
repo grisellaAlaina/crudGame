@@ -9,13 +9,11 @@ import java.util.List;
 @Repository
 public class HeroRepository {
 
-    List<Hero> heroList = new ArrayList();
+    List<Hero> heroList = new ArrayList<>();
     private static int idGen = 0;
 
-
-    public void addHero() {
-
-        Hero hero = new Hero(idGen++);
+    public void addHero(String name) {
+        Hero hero = new Hero(idGen++, name);
         heroList.add(hero);
     }
 
