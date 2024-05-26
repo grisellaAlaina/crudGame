@@ -8,12 +8,9 @@ import java.util.List;
 
 @Repository
 public class HeroRepository {
-
     private final List<Hero> heroList = new ArrayList<>();
-    private static int idGen = 0;
 
-    public void addHero(String name) {
-        Hero hero = new Hero(idGen++, name);
+    public void addHero(Hero hero) {
         heroList.add(hero);
     }
 

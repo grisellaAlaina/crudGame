@@ -15,8 +15,11 @@ public class HeroService {
     @Autowired
     HeroRepository repository;
 
+    private static int idGen = 0;
+
     public void create(String name) {
-        repository.addHero(name);
+        Hero hero = new Hero(idGen++, name);
+        repository.addHero(hero);
     }
 
 
