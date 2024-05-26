@@ -39,7 +39,7 @@ public class HeroService {
             repository.updateHero(hero);
             return "Attack upgreated";
         }
-        return "Not enouth experience";
+        return "Not enough experience";
     }
     public String upgreatDefence(int id) {
         Hero hero = repository.getById(id);
@@ -74,7 +74,7 @@ public class HeroService {
         return hero;
     }
 
-    public Hero winResult(Hero hero, int i) {
+    private Hero winResult(Hero hero, int i) {
         hero.setExperience(hero.getExperience() + (i + 1) * 10);
         if (hero.getExperience() > 100) {
             hero.setLevel(hero.getLevel() + 1);
