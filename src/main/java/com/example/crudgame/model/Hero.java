@@ -1,6 +1,8 @@
 package com.example.crudgame.model;
 
 
+import java.util.Objects;
+
 public class Hero {
     public Hero(int id, String name) {
         this.id = id;
@@ -68,5 +70,18 @@ public class Hero {
 
     public void setTotalFights(int totalFights) {
         this.totalFights = totalFights;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Hero hero = (Hero) o;
+        return id == hero.id && totalFights == hero.totalFights && level == hero.level && experience == hero.experience && attack == hero.attack && defence == hero.defence && Objects.equals(name, hero.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, totalFights, level, experience, attack, defence);
     }
 }
