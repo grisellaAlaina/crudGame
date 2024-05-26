@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public class HeroRepository {
 
-    List<Hero> heroList = new ArrayList<>();
+    private final List<Hero> heroList = new ArrayList<>();
     private static int idGen = 0;
 
     public void addHero(String name) {
