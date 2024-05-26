@@ -1,8 +1,10 @@
 package com.example.crudgame.model;
 
-
 import java.util.Objects;
 
+/**
+ * Модель героя игры.
+ */
 public class Hero {
     public Hero(int id, String name) {
         this.id = id;
