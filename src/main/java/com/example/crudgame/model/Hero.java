@@ -13,6 +13,7 @@ public class Hero {
     private int totalFights = 0;
     private int level = 0;
     private int experience = 0;
+    private int perksPoints = 0;
     private int attack = 0;
     private int defence = 0;
 
@@ -70,6 +71,14 @@ public class Hero {
 
     public void setTotalFights(int totalFights) {
         this.totalFights = totalFights;
+    }
+
+    public int getPerksPoints() {
+        return perksPoints;
+    }
+
+    public void setPerksPoints(int perksPoints) {
+        this.perksPoints = perksPoints;
     }
 
     @Override

@@ -22,7 +22,6 @@ public class HeroService {
         repository.addHero(hero);
     }
 
-
     public Hero getHero(int id) {
         return repository.getById(id);
     }
@@ -33,8 +32,10 @@ public class HeroService {
 
     public String upgreatAttack(int id) {
         Hero hero = repository.getById(id);
-        if(hero.getLevel() > hero.getAttack() + hero.getDefence()) {
+        int points = hero.getPerksPoints();
+        if(points > 0) {
             hero.setAttack(hero.getAttack() + 1);
+            hero.setPerksPoints(points - 1);
             repository.updateHero(hero);
             return "Attack upgreated";
         }
@@ -42,8 +43,10 @@ public class HeroService {
     }
     public String upgreatDefence(int id) {
         Hero hero = repository.getById(id);
-        if(hero.getLevel() > hero.getAttack() + hero.getDefence()) {
+        int points = hero.getPerksPoints();
+        if(points > 0) {
             hero.setDefence(hero.getDefence() + 1);
+            hero.setPerksPoints(points - 1);
             repository.updateHero(hero);
             return "Defence upgreated";
         }
@@ -75,6 +78,7 @@ public class HeroService {
         hero.setExperience(hero.getExperience() + (i + 1) * 10);
         if (hero.getExperience() > 100) {
             hero.setLevel(hero.getLevel() + 1);
+            hero.setPerksPoints(hero.getPerksPoints() + 1);
             hero.setExperience(0);
         }
         if (i == 9) hero.setName("CHAMPION");
