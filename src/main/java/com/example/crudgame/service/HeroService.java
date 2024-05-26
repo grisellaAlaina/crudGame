@@ -51,16 +51,17 @@ public class HeroService {
         Hero hero = repository.getById(id);
         for(int i = 0; i < 10; i++) {
             hero.setTotalFights(hero.getTotalFights() + 1);
-            if (i - hero.getDefence() > hero.getAttack()) {
+            if (i * 2 - hero.getDefence() < hero.getAttack()) {
                 hero = winResult(hero, i);
-                break;
-            } else if (i - hero.getDefence() == hero.getAttack()) {
+                continue;
+            } else if (i * 2 - hero.getDefence() == hero.getAttack()) {
                 Random random = new Random();
                 if (random.nextBoolean()) {
                     hero = winResult(hero, i);
-                    break;
+                    continue;
                 }
             }
+            break;
 
         }
         repository.updateHero(hero);
@@ -68,7 +69,7 @@ public class HeroService {
     }
 
     public Hero winResult(Hero hero, int i) {
-        hero.setExperience(hero.getExperience() + i * 13);
+        hero.setExperience(hero.getExperience() + (i + 1) * 10);
         if (hero.getExperience() > 100) {
             hero.setLevel(hero.getLevel() + 1);
             hero.setExperience(0);

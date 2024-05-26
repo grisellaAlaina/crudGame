@@ -32,16 +32,16 @@ public class crudGameController {
         return heroService.getHero(id);
     }
 
-    @PutMapping("/upgreatAttack/{id}")
+    @PatchMapping("/upgreatAttack/{id}")
     public String upgreatAttack(@PathVariable("id") int id) {
         return heroService.upgreatAttack(id);
     }
-    @PutMapping("/upgreatDefence/{id}")
+    @PatchMapping("/upgreatDefence/{id}")
     public String upgreatDefence(@PathVariable("id") int id) {
         return heroService.upgreatDefence(id);
     }
 
-    @PutMapping("/getFight/{id}")
+    @PatchMapping("/getFight/{id}")
     public Hero getFigth(@PathVariable("id") int id) {
         return heroService.getFigth(id);
     }
