@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Контроллер для управления действиями с героями в игре.
+ * Контроллер для
+ * управления действиями с героями в игре.
  */
 @RestController
 public class CrudGameController {

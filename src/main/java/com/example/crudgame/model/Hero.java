@@ -14,7 +14,7 @@ public class Hero {
     private String name;
     private int totalFights = 0;
     private int level = 0;
-    private int experience = 0;
+    private int experience = 50;
     private int perksPoints = 0;
     private int attack = 0;
     private int defence = 0;
