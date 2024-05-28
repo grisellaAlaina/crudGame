@@ -144,6 +144,11 @@ public class HeroService {
         return hero;
     }
 
+    /**
+     * Удадяет героя
+     *
+     * @param id
+     */
     @Transactional
     public void deleteHero(int id) {
         repository.deleteById(id);
