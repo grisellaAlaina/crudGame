@@ -26,6 +26,11 @@ public class CrudGameController {
         this.heroService = heroService;
     }
 
+    @GetMapping("/test")
+    void newone() {
+        heroService.newTest();
+    }
+
     /**
      * Метод для создания нового героя по имени.
      *

@@ -2,33 +2,40 @@ package com.example.crudgame.service;
 
 import com.example.crudgame.model.Hero;
 import com.example.crudgame.repository.HeroRepository;
+import com.example.crudgame.util.HeroNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 /**
  * Сервис для управления действиями с героями в игре.
  */
 @Service
+@Transactional(readOnly = true)
 public class HeroService {
 
     private System.Logger logger =
             System.getLogger(HeroService.class.getName());
 
+    private final HeroRepository repository;
     @Autowired
-    HeroRepository repository;
-
-    private static int idGen = 0;
+    public HeroService(HeroRepository repository) {
+        this.repository = repository;
+    }
 
     /**
      * Создает нового героя с указанным именем.
      * @param name Имя героя.
      */
+    @Transactional
     public void create(String name) {
-        Hero hero = new Hero(idGen++, name);
-        repository.addHero(hero);
+        Hero hero = new Hero();
+        hero.setName(name);
+        repository.save(hero);
         logger.log(System.Logger.Level.INFO, "Created a new hero: " + hero.getName());
     }
 
@@ -38,9 +45,8 @@ public class HeroService {
      * @return Найденный герой.
      */
     public Hero getHero(int id) {
-        Hero hero = repository.getById(id);
-        logger.log(System.Logger.Level.INFO, "Retrieved hero by id: " + hero.getName());
-        return hero;
+        Optional<Hero> foundHero = repository.findById(id);
+        return foundHero.orElseThrow();
     }
 
     /**
@@ -49,7 +55,7 @@ public class HeroService {
      */
     public List<Hero> getAll() {
         logger.log(System.Logger.Level.INFO, "Retrieved all heroes");
-        return repository.getAll();
+        return repository.findAll();
     }
 
     /**
@@ -57,13 +63,14 @@ public class HeroService {
      * @param id Идентификатор героя.
      * @return Строка с информацией об увеличении атаки.
      */
+    @Transactional
     public String upgreatAttack(int id) {
-        Hero hero = repository.getById(id);
+        Hero hero = getHero(id);
         int points = hero.getPerksPoints();
         if (points > 0) {
             hero.setAttack(hero.getAttack() + 1);
             hero.setPerksPoints(points - 1);
-            repository.updateHero(hero);
+            repository.save(hero);
             logger.log(System.Logger.Level.INFO,
                     "Upgraded attack for hero with id: " + id);
             return "Attack upgreated";
@@ -76,13 +83,14 @@ public class HeroService {
      * @param id Идентификатор героя.
      * @return Строка с информацией об увеличении защиты.
      */
+    @Transactional
     public String upgreatDefence(int id) {
-        Hero hero = repository.getById(id);
+        Hero hero = getHero(id);
         int points = hero.getPerksPoints();
         if (points > 0) {
             hero.setDefence(hero.getDefence() + 1);
             hero.setPerksPoints(points - 1);
-            repository.updateHero(hero);
+            repository.save(hero);
             logger.log(System.Logger.Level.INFO,
                     "Upgraded defence for hero with id: " + id);
             return "Defence upgreated";
@@ -95,8 +103,9 @@ public class HeroService {
      * @param id Идентификатор героя.
      * @return Результат сражения.
      */
+    @Transactional
     public Hero getFigth(int id) {
-        Hero hero = repository.getById(id);
+        Hero hero = getHero(id);
         for (int i = 0; i < 10; i++) {
             hero.setTotalFights(hero.getTotalFights() + 1);
             if (i * 2 - hero.getDefence() < hero.getAttack()) {
@@ -116,7 +125,7 @@ public class HeroService {
             logger.log(System.Logger.Level.INFO, "Hero lost the fight at round " + i);
             break;
         }
-        repository.updateHero(hero);
+        repository.save(hero);
         return hero;
     }
 
@@ -133,5 +142,10 @@ public class HeroService {
         }
         if (i == 9) hero.setName("CHAMPION");
         return hero;
+    }
+
+    public void newTest() {
+
+
     }
 }
