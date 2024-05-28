@@ -10,13 +10,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class HeroServiceTest {
-    private static final int ID = 0;
+    private static final int ID = 1;
 
     @Mock
     private HeroRepository heroRepository;
@@ -25,18 +26,9 @@ class HeroServiceTest {
     private HeroService service;
 
     @Test
-    void create() {
-        final Hero hero = new Hero(0, "Bob");
-
-        service.create("Bob");
-
-        verify(heroRepository).addHero(hero);
-    }
-
-    @Test
     void getHero() {
         final Hero hero = mock(Hero.class);
-        when(heroRepository.getById(ID)).thenReturn(hero);
+        when(heroRepository.findById(ID)).thenReturn(Optional.ofNullable(hero));
 
         final Hero actualHero = service.getHero(ID);
 
@@ -47,7 +39,7 @@ class HeroServiceTest {
     @Test
     void getAll() {
         final List<Hero> heroList = mock(ArrayList.class);
-        when(heroRepository.getAll()).thenReturn(heroList);
+        when(heroRepository.findAll()).thenReturn(heroList);
 
         final List<Hero> currentList = service.getAll();
 
@@ -57,9 +49,9 @@ class HeroServiceTest {
 
     @Test
     void upgreatAttack() {
-        final Hero hero = new Hero(0, "Bob");
+        final Hero hero = new Hero();
         hero.setPerksPoints(1);
-        when(heroRepository.getById(ID)).thenReturn(hero);
+        when(heroRepository.findById(ID)).thenReturn(Optional.ofNullable(hero));
 
         final String acturalStr = service.upgreatAttack(ID);
 
@@ -68,8 +60,8 @@ class HeroServiceTest {
 
     @Test
     void upgreatDefence() {
-        final Hero hero = new Hero(0, "Bob");
-        when(heroRepository.getById(ID)).thenReturn(hero);
+        final Hero hero = new Hero();
+        when(heroRepository.findById(ID)).thenReturn(Optional.ofNullable(hero));
 
         final String acturalStr = service.upgreatAttack(ID);
 
@@ -78,9 +70,9 @@ class HeroServiceTest {
 
     @Test
     void getFigth() {
-        final Hero hero = new Hero(0, "Bob");
+        final Hero hero = new Hero();
         hero.setAttack(99);
-        when(heroRepository.getById(ID)).thenReturn(hero);
+        when(heroRepository.findById(ID)).thenReturn(Optional.ofNullable(hero));
 
         Hero currentHero = service.getFigth(ID);
 

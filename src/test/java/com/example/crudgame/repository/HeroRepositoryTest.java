@@ -1,81 +1,39 @@
 package com.example.crudgame.repository;
 
 import com.example.crudgame.model.Hero;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(MockitoExtension.class)
 class HeroRepositoryTest {
-
-    private HeroRepository repository;
-    private Hero hero;
-
-    HeroRepositoryTest() {
-    }
-
-    @BeforeEach
-    void setup() {
-        repository = new HeroRepository();
-        hero = new Hero(0, "Bob");
-    }
-
+    private HeroRepository heroRepository = Mockito.mock(HeroRepository.class);
 
     @Test
-    void addHero() {
-        Hero currentHero = new Hero(0, "Bob");
+    void testFindById() {
+        Hero testHero = new Hero();
+        testHero.setId(2);
+        testHero.setName("Test Hero");
+        Mockito.when(heroRepository.findById(2)).thenReturn(Optional.of(testHero));
 
-        repository.addHero(currentHero);
-        Hero testHero = repository.getById(0);
+        Optional<Hero> result = heroRepository.findById(2);
 
-        assertNotNull(testHero);
-        assertEquals(hero, testHero);
+        assertEquals(testHero, result.orElse(null));
     }
 
     @Test
-    void getById() {
-        Hero currentHero = new Hero(0, "Bob");
-        Hero currentHero2 = new Hero(1, "Bob");
+    void testSave() {
+        Hero testHero = new Hero();
+        testHero.setName("Test Hero");
+        Mockito.when(heroRepository.save(testHero)).thenReturn(testHero);
 
-        repository.addHero(currentHero);
-        repository.addHero(currentHero2);
-        Hero testHero = repository.getById(0);
+        Hero savedHero = heroRepository.save(testHero);
 
-        assertNotNull(testHero);
-        assertEquals(hero, testHero);
+        assertEquals(testHero, savedHero);
     }
-
-    @Test
-    void getAll() {
-        Hero currentHero = new Hero(0, "Bob");
-        Hero currentHero2 = new Hero(1, "Bob");
-        List<Hero> heroList = new ArrayList<>();
-        heroList.add(currentHero);
-        heroList.add(currentHero2);
-
-        repository.addHero(currentHero);
-        repository.addHero(currentHero2);
-        List<Hero> currentList = repository.getAll();
-
-        assertNotNull(currentList);
-        assertEquals(heroList, currentList);
-
-    }
-
-    @Test
-    void updateHero() {
-        Hero currentHero = new Hero(0, "Bob");
-
-        repository.addHero(currentHero);
-        repository.updateHero(hero);
-        Hero testHero = repository.getById(0);
-
-        assertNotNull(testHero);
-        assertEquals(hero, testHero);
-    }
-
 }

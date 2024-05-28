@@ -8,7 +8,6 @@ import java.util.Objects;
 /**
  * Модель героя игры.
  */
-
 @Entity
 @Table(name = "tbl_hero")
 public class Hero {
