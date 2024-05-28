@@ -3,6 +3,7 @@ package com.example.crudgame.controller;
 import com.example.crudgame.model.Hero;
 import com.example.crudgame.service.HeroService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,6 @@ public class CrudGameController {
 
     @Autowired
     private final HeroService heroService;
-
     /**
      * Конструктор контроллера.
      *
@@ -24,11 +24,6 @@ public class CrudGameController {
      */
     public CrudGameController(HeroService heroService) {
         this.heroService = heroService;
-    }
-
-    @GetMapping("/test")
-    void newone() {
-        heroService.newTest();
     }
 
     /**
@@ -93,6 +88,16 @@ public class CrudGameController {
     @PatchMapping("/getFight/{id}")
     public Hero getFigth(@PathVariable("id") int id) {
         return heroService.getFigth(id);
+    }
+
+    /**
+     * Метод для удаления по айди
+     *
+     * @param id
+     */
+    @DeleteMapping("/delete/{id}")
+    public void deleteHero(@PathVariable("id") int id) {
+        heroService.deleteHero(id);
     }
 
 }

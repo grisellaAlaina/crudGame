@@ -144,8 +144,8 @@ public class HeroService {
         return hero;
     }
 
-    public void newTest() {
-
-
+    @Transactional
+    public void deleteHero(int id) {
+        repository.deleteById(id);
     }
 }
